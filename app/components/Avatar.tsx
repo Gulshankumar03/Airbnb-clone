@@ -2,16 +2,20 @@
 
 import Image from "next/image";
 
-const Avatar = () => {
-  return(
+interface AvatarProps {
+  src?: string | null | undefined;
+}
+
+const Avatar: React.FC<AvatarProps> = ({ src }) => {
+  return (
     <Image
       className="rounded-full"
       alt="avatar"
-      height='30'
-      width='30'
-      src='/images/placeholder1.png'
+      height="30"
+      width="30"
+      src={src || "/images/placeholder1.png"}
     />
-  )
+  );
 };
 
 export default Avatar;

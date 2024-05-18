@@ -6,7 +6,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
@@ -53,9 +53,14 @@ const LoginModal = () => {
     });
   };
 
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome back!" subtitle="Login to your account." />
+      <Heading title="Welcome to Airbnb" subtitle="Login to your account." />
 
       <Input
         id="email"
@@ -87,13 +92,13 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div
         className="
@@ -103,10 +108,10 @@ const LoginModal = () => {
         font-light
       "
       >
-        {/* <div className="justify-center flex flex-row items-center gap-2">
-          <div>Already have an account?</div>
+        <div className="justify-center flex flex-row items-center gap-2">
+          <div>New to Airbnb?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="
           text-blue-950
           hover:underline 
@@ -114,9 +119,9 @@ const LoginModal = () => {
           font-normal
           "
           >
-            Login
+            Create an account
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
