@@ -2,10 +2,9 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useState } from "react";
+import { useCallback, useState,useEffect } from "react";
 import MenuItem from "../MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import LoginModal from "../modals/LoginModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
@@ -28,6 +27,24 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     }
     //open Rent modal
   }, [currentUser, loginModal]);
+
+  useEffect(() => {
+    // Function to check if clicked outside of menu
+    const handleClickOutside = (event: MouseEvent) => {
+      const menu = document.querySelector('.menu');
+      if (isOpen && menu && !menu.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    
+    // Add the click event listener when mounted
+  document.addEventListener('mousedown', handleClickOutside);
+
+  // Cleanup the event listener on unmount
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, [isOpen]);
 
   return (
     <div className="relative">
@@ -87,6 +104,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             top-12
             text-sm
             border
+            menu
           "
         >
           <div className="flex flex-col cursor-pointer ">
