@@ -2,12 +2,13 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useState,useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import MenuItem from "../MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
+import useRentModal from "@/app/hooks/useRentModal";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -16,6 +17,7 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -25,26 +27,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     if (!currentUser) {
       return loginModal.onOpen();
     }
-    //open Rent modal
-  }, [currentUser, loginModal]);
-
-  useEffect(() => {
-    // Function to check if clicked outside of menu
-    const handleClickOutside = (event: MouseEvent) => {
-      const menu = document.querySelector('.menu');
-      if (isOpen && menu && !menu.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    
-    // Add the click event listener when mounted
-  document.addEventListener('mousedown', handleClickOutside);
-
-  // Cleanup the event listener on unmount
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-}, [isOpen]);
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -104,7 +88,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             top-12
             text-sm
             border
-            menu
           "
         >
           <div className="flex flex-col cursor-pointer ">
@@ -114,7 +97,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My favourites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
-                <MenuItem onClick={() => {}} label="Airbnb my home" />
+                <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>
