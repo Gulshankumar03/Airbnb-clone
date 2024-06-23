@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https", // Specify the protocol (http or https)
-        hostname: "avatars.githubusercontent.com", // Replace with the actual domain
+        hostname: "res.cloudinary.com", // Replace with the actual domain
         port: "", // Leave empty if not using a specific port
         pathname: "/**", // Specify the path pattern (allow all paths)
       },
