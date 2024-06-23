@@ -29,11 +29,11 @@ export default async function Home() {
       >
         {listings.map((listing: any) => {
           return (
-            <div>
-              <ListingCard 
+            <div key={listing.id}>
+              <ListingCard
                 currentUser={currentUser}
-                key={listing.id} 
-                data={listing} 
+                key={listing.id}
+                data={listing}
               />
             </div>
           );
