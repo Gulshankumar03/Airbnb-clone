@@ -1,22 +1,27 @@
 import getCurrentUser from "./actions/getCurrentUser";
 import getListings from "./actions/getListings";
+import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
-import { SafeListing } from "./types";
 
 export default async function Home() {
   const listings = await getListings();
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
-    return <EmptyState showReset />;
+    return (
+      <ClientOnly>
+        <EmptyState showReset />
+      </ClientOnly>
+    );
   }
 
   return (
-    <Container>
-      <div
-        className="
+    <ClientOnly>
+      <Container>
+        <div
+          className="
         pt-24
         grid
         grid-cols-1
@@ -27,19 +32,20 @@ export default async function Home() {
         2xl:grid-cols-7
         gap-8
       "
-      >
-        {listings.map((listing) => {
-          return (
-            <div key={listing.id}>
-              <ListingCard
-                currentUser={currentUser}
-                key={listing.id}
-                data={listing}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </Container>
+        >
+          {listings.map((listing) => {
+            return (
+              <div key={listing.id}>
+                <ListingCard
+                  currentUser={currentUser}
+                  key={listing.id}
+                  data={listing}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </ClientOnly>
   );
 }
