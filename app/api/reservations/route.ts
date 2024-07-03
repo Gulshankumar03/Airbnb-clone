@@ -25,6 +25,7 @@ export async function POST(request: Request) {
       reservations: {
         create: {
           userId: currentUser.id,
+          // authorId: currentUser.id,
           startDate,
           endDate,
           totalPrice,
