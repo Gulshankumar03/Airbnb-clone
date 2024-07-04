@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import Container from "../Container";
 import Categories from "./Categories";
 import Logo from "./Logo";
@@ -13,7 +14,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className="fixed w-full z-10 bg-white shadow-sm">
-    {/* <div className="fixed w-full z-10 bg-white shadow-sm bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-70"> */}
+      {/* <div className="fixed w-full z-10 bg-white shadow-sm bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-70"> */}
       <div className="py-4 border">
         <Container>
           <div
@@ -27,12 +28,16 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             "
           >
             <Logo />
-            <Search />
+            <Suspense>
+              <Search />
+            </Suspense>
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
-      <Categories />
+      <Suspense>
+        <Categories />
+      </Suspense>
     </div>
   );
 };

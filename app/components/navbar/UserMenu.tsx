@@ -2,7 +2,7 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState} from "react";
 import MenuItem from "../MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -50,7 +50,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             cursor-pointer
           "
         >
-          Airbnb your home
+          Your Home
         </div>
         <div
           onClick={toggleOpen}
@@ -113,7 +113,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 />
                 <MenuItem 
                   onClick={rentModal.onOpen} 
-                  label="Airbnb my home" 
+                  label="My home" 
                 />
                 <hr />
                 <MenuItem 
