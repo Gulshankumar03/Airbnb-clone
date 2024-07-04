@@ -14,8 +14,8 @@ import { Suspense } from "react";
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Airbnb",
-  description: "Airbnb Clone",
+  title: "Aashiyana",
+  description: "Airbnb inspired online peer-to-peer lodging marketplace",
 };
 
 export default async function RootLayout({
