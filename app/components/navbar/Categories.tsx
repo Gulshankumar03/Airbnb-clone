@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Container from "../Container";
 import CategoryBox from "../CategoryBox";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -121,14 +121,16 @@ const Categories = () => {
           overflow-x-auto
         "
       >
-        {categories.map((item) => (
-          <CategoryBox
-            key={item.label}
-            label={item.label}
-            selected={category === item.label}
-            icon={item.icon}
-          />
-        ))}
+        <Suspense>
+          {categories.map((item) => (
+            <CategoryBox
+              key={item.label}
+              label={item.label}
+              selected={category === item.label}
+              icon={item.icon}
+            />
+          ))}
+        </Suspense>
       </div>
     </Container>
   );
