@@ -1,9 +1,12 @@
 "use client";
+import useSearchModal from "@/app/hooks/useSearchModal";
 import { HiSearch } from "react-icons/hi";
 
 const Search = () => {
+  const searchModal = useSearchModal();
   return (
     <div
+      onClick={searchModal.onOpen}
       className="
         border
         w-full
@@ -58,8 +61,7 @@ const Search = () => {
         flex-row
         items-center
         gap-3
-        rounded-full
-          hover:bg-neutral-100/95
+       
         "
         >
           <div className="hidden sm:block">Add Guests</div>
